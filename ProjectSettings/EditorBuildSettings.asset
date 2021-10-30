@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Test Scene - Vuforia.unity
+    guid: 4c0b6523e225b8c41906580ab7c36483
   m_configObjects: {}
