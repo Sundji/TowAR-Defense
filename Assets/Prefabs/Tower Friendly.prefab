@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7482670978749178767}
   - component: {fileID: 7472116908299862983}
   - component: {fileID: 7463685195325715341}
+  - component: {fileID: 8529792838005120801}
   m_Layer: 0
   m_Name: Tower Friendly
   m_TagString: Untagged
@@ -163,3 +164,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8529792838005120801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476620614249338869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e8500508d65bc44badc06f3762aea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
+  _transform: {fileID: 0}
+  _bullet: {fileID: 7318429167366732365, guid: 9a7ea62779a1b674ebf34bf1ff25fe9c, type: 3}

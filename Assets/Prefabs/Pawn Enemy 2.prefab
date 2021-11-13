@@ -255,6 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3418568873696049459}
   - component: {fileID: 2375091550868612391}
+  - component: {fileID: 3034597374911316318}
   m_Layer: 0
   m_Name: Pawn Enemy 2
   m_TagString: Untagged
@@ -308,6 +309,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3034597374911316318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2375091550868612388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e8500508d65bc44badc06f3762aea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 3
+  _transform: {fileID: 0}
+  _bullet: {fileID: 7084427592461281545, guid: 687aa48f47b63994695fd72974316f91, type: 3}
 --- !u!1 &2537704920235196753
 GameObject:
   m_ObjectHideFlags: 0
