@@ -75,4 +75,33 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         return closest;
     }
+
+
+    public void pawnDead(Pawn deadPawn)
+    {
+        if (_friendlyPawns.Contains(deadPawn))
+        {
+            _friendlyPawns.Remove(deadPawn);
+            if (deadPawn._type == Pawn.PawnType.TOWER) _towersLeft -= 1;
+            if (_towersLeft == 0) playerLoses();
+        } else
+        {
+            _enemyPawns.Remove(deadPawn);
+            if (_enemyPawns.Count == 0) playerWins();
+        }
+    }
+
+    void playerWins()
+    {
+        Debug.Log("Victory");
+    }
+
+
+    void playerLoses()
+    {
+        Debug.Log("Defeat");
+    }
+
+    
+
 }

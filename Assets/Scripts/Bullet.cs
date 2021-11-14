@@ -9,7 +9,8 @@ public class Bullet : MonoBehaviour
     float _flySpeed = 5f;
     float _damage = 25f;
 
-    public void Prepare(Vector3 direction)
+
+    public void Fire(Vector3 direction)
     {
         _direction = direction;
         _isFired = true;
@@ -22,7 +23,6 @@ public class Bullet : MonoBehaviour
     {
         if (_isFired)
         {
-            Debug.Log(_direction);
             transform.position += _direction * _flySpeed * Time.deltaTime;
         }
     }

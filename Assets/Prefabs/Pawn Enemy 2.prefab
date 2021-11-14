@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 3418568873696049459}
   - component: {fileID: 2375091550868612391}
   - component: {fileID: 3034597374911316318}
+  - component: {fileID: 2011354543940630403}
   m_Layer: 0
   m_Name: Pawn Enemy 2
   m_TagString: Untagged
@@ -324,6 +325,20 @@ MonoBehaviour:
   _type: 3
   _transform: {fileID: 0}
   _bullet: {fileID: 7084427592461281545, guid: 687aa48f47b63994695fd72974316f91, type: 3}
+  _health: 0
+--- !u!65 &2011354543940630403
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2375091550868612388}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.63319224, y: 1.3058393, z: 1}
+  m_Center: {x: -0.010613471, y: 0.69244206, z: 0}
 --- !u!1 &2537704920235196753
 GameObject:
   m_ObjectHideFlags: 0
