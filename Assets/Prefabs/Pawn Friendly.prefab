@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6856247178901659361}
   - component: {fileID: 5299587519217352408}
   - component: {fileID: 8716516383623961500}
+  - component: {fileID: 1814303364654429136}
   m_Layer: 0
   m_Name: Pawn Friendly
   m_TagString: Untagged
@@ -111,6 +112,20 @@ MonoBehaviour:
   _type: 0
   _transform: {fileID: 0}
   _bullet: {fileID: 7318429167366732365, guid: 9a7ea62779a1b674ebf34bf1ff25fe9c, type: 3}
+  _health: 0
+--- !u!65 &1814303364654429136
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189058625271136011}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.55133104, y: 0.88389087, z: 0.5828401}
+  m_Center: {x: -0.0041400194, y: 0.5417764, z: -0.002649963}
 --- !u!1 &229417460105043969
 GameObject:
   m_ObjectHideFlags: 0

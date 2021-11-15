@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 7472116908299862983}
   - component: {fileID: 7463685195325715341}
   - component: {fileID: 8529792838005120801}
+  - component: {fileID: 6937561955032648115}
   m_Layer: 0
   m_Name: Tower Friendly
   m_TagString: Untagged
@@ -179,3 +180,17 @@ MonoBehaviour:
   _type: 1
   _transform: {fileID: 0}
   _bullet: {fileID: 7318429167366732365, guid: 9a7ea62779a1b674ebf34bf1ff25fe9c, type: 3}
+  _health: 0
+--- !u!65 &6937561955032648115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476620614249338869}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8210824, y: 3.85379, z: 3.2534266}
+  m_Center: {x: 0.042803645, y: 1.9737281, z: 0.014006674}
