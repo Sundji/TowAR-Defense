@@ -3,105 +3,91 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
-    // DOHVAT VARIJABLI ILI FUNKCIJA: GameManager.Instance.ime-varijable-ili-funkcije
-    // ZA KORISTENJE AWAKE FUNKCIJE TREBA NAPRAVITI NJEN OVERRIDE I KAO PRVI KORAK OSTAVITI base.Awake() (koristi se u SingletonBehaviour)
+    private List<Pawn> _pawnsEnemy = new List<Pawn>();
+    private List<Pawn> _pawnsFriendly = new List<Pawn>();
+    private List<Pawn> _towersFriendly = new List<Pawn>();
 
-    public List<Pawn> _friendlyPawns;
-    public List<Pawn> _enemyPawns;
-    private int _towersLeft = 0;
-
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         EventManager.Instance.OnPawnCreatedEvent.AddListener(OnPawnCreated);
+        EventManager.Instance.OnPawnDeathEvent.AddListener(OnPawnDeath);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) EventManager.Instance.OnGameStartEvent.Invoke(); // temporary
     }
 
     private void OnPawnCreated(Pawn pawn)
     {
-        if ((pawn._type == Pawn.PawnType.FRIENDLY) || (pawn._type == Pawn.PawnType.TOWER))
-        {
-            _friendlyPawns.Add(pawn);
-
-            if (pawn._type == Pawn.PawnType.TOWER)
-            {
-                _towersLeft += 1;
-            }
-
-        }
-        else
-        {
-            _enemyPawns.Add(pawn);
-        }
-
+        PawnType pawnType = pawn.Type;
+        
+        if (pawnType == PawnType.PAWN_ENEMY_MELEE || pawnType == PawnType.PAWN_ENEMY_RANGED) _pawnsEnemy.Add(pawn);
+        else if (pawnType == PawnType.PAWN_FRIENDLY) _pawnsFriendly.Add(pawn);
+        else if (pawnType == PawnType.TOWER_FRIENDLY) _towersFriendly.Add(pawn);
     }
 
-    public Pawn FindClosestTarget(Vector3 position, Pawn.PawnType attackerType)
+    private void OnPawnDeath(Pawn pawn)
     {
-        float minDistance = Mathf.Infinity;
-        Pawn closest = null;
-        if ((attackerType == Pawn.PawnType.FRIENDLY) || (attackerType == Pawn.PawnType.TOWER))
-        {
-            foreach (Pawn p in _enemyPawns)
-            {
-                float trenDistance = Vector3.Distance(position, p._transform.position);
-                if (trenDistance < minDistance)
-                {
-                    minDistance = trenDistance;
-                    closest = p;
-                }
-            }
+        PawnType pawnType = pawn.Type;
 
-        } else if (attackerType == Pawn.PawnType.ENEMY_MELEE)
+        if (pawnType == PawnType.PAWN_ENEMY_MELEE || pawnType == PawnType.PAWN_ENEMY_RANGED)
         {
-            foreach (Pawn p in _friendlyPawns)
-            {
-                float trenDistance = Vector3.Distance(position, p._transform.position);
-                if ((p._type == Pawn.PawnType.FRIENDLY) && (trenDistance < minDistance))
-                {
-                    minDistance = trenDistance;
-                    closest = p;
-                }
-            }
-        } else
-        {
-            foreach (Pawn p in _friendlyPawns)
-            {
-                float trenDistance = Vector3.Distance(position, p._transform.position);
-                if ((p._type == Pawn.PawnType.TOWER) && (trenDistance < minDistance))
-                {
-                    minDistance = trenDistance;
-                    closest = p;
-                }
-            }
+            _pawnsEnemy.Remove(pawn);
+            if (_pawnsEnemy.Count == 0) GameEnd(isVictory: true);
         }
-        return closest;
-    }
-
-
-    public void pawnDead(Pawn deadPawn)
-    {
-        if (_friendlyPawns.Contains(deadPawn))
+        else if (pawnType == PawnType.PAWN_FRIENDLY)
         {
-            _friendlyPawns.Remove(deadPawn);
-            if (deadPawn._type == Pawn.PawnType.TOWER) _towersLeft -= 1;
-            if (_towersLeft == 0) playerLoses();
-        } else
+            _pawnsFriendly.Remove(pawn);
+        }
+        else if (pawnType == PawnType.TOWER_FRIENDLY)
         {
-            _enemyPawns.Remove(deadPawn);
-            if (_enemyPawns.Count == 0) playerWins();
+            _towersFriendly.Remove(pawn);
+            if (_towersFriendly.Count == 0) GameEnd(isVictory: false);
         }
     }
 
-    void playerWins()
+    private int FindClosestPawnIndex(Vector3 position, List<Pawn> pawnList)
     {
-        Debug.Log("Victory");
+        float distanceMinimum = Mathf.Infinity;
+        int indexOfClosestPawn = -1;
+
+        for (int index = 0; index < pawnList.Count; index++)
+        {
+            float distance = Vector3.Distance(position, pawnList[index].transform.position);
+            if (distanceMinimum > distance)
+            {
+                distanceMinimum = distance;
+                indexOfClosestPawn = index;
+            }
+        }
+
+        return indexOfClosestPawn;
     }
 
-
-    void playerLoses()
+    private void GameEnd(bool isVictory)
     {
-        Debug.Log("Defeat");
+        EventManager.Instance.OnGameEndEvent.Invoke(isVictory);
     }
 
-    
-
+    public Pawn FindClosestTarget(Vector3 position, PawnType attackerType)
+    {
+        if (attackerType == PawnType.PAWN_ENEMY_MELEE)
+        {
+            int index = FindClosestPawnIndex(position, _pawnsFriendly);
+            return index == -1 ? null : _pawnsFriendly[index];
+        }
+        else if (attackerType == PawnType.PAWN_ENEMY_RANGED)
+        {
+            int index = FindClosestPawnIndex(position, _towersFriendly);
+            return index == -1 ? null : _towersFriendly[index];
+        }
+        else if (attackerType == PawnType.PAWN_FRIENDLY || attackerType == PawnType.TOWER_FRIENDLY)
+        {
+            int index = FindClosestPawnIndex(position, _pawnsEnemy);
+            return index == -1 ? null : _pawnsEnemy[index];
+        }
+        return null;
+    }
 }

@@ -1,40 +1,34 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Vector3 _direction;
-    bool _isFired;
-    float _flySpeed = 5f;
-    float _damage = 25f;
+    [SerializeField] private List<PawnType> _pawnTypesToHit = new List<PawnType>();
+    [SerializeField] private float _damageAmount = 0.0f;
+    [SerializeField] private float _speed = 0.0f;
 
+    private Rigidbody _rigidbody;
 
-    public void Fire(Vector3 direction)
+    private void Awake()
     {
-        _direction = direction;
-        _isFired = true;
-
+        _rigidbody = GetComponent<Rigidbody>();
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_isFired)
-        {
-            transform.position += _direction * _flySpeed * Time.deltaTime;
-        }
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Pawn>() != null)
+        if (other.GetComponent<Pawn>() == null) return;
+
+        Pawn pawn = other.GetComponent<Pawn>();
+        if (_pawnTypesToHit.Contains(pawn.Type))
         {
-            other.GetComponent<Pawn>().loseHealth(_damage);
+            pawn.TakeDamage(_damageAmount);
             Destroy(gameObject);
         }
     }
 
+    public void Fire(Vector3 direction)
+    {
+        Debug.Log(direction);
+        _rigidbody.AddForce(direction * _speed, ForceMode.Impulse);
+    }
 }
