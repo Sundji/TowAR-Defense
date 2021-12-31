@@ -10,17 +10,14 @@ namespace Assets.Scripts
     public class PauseMenuController : MonoBehaviour
     {
         [SerializeField] private GameObject _pauseMenu = null;
-        public HealthBar healthBar;
-        private int health = 100;
 
         /// <summary>
         /// Function that pauses the game on button click and reveals pause menu.
         /// </summary>
         public void PauseGame()
         {
-            Time.timeScale = 0;
             _pauseMenu.SetActive(true);
-            Debug.Log("Game paused.");
+            Time.timeScale = 0;
         }
 
         /// <summary>
@@ -28,9 +25,8 @@ namespace Assets.Scripts
         /// </summary>
         public void ResumeGame()
         {
-            Time.timeScale = 1;
             _pauseMenu.gameObject.SetActive(false);
-            Debug.Log("Game continued.");
+            Time.timeScale = 1;
         }
 
         /// <summary>
@@ -38,10 +34,9 @@ namespace Assets.Scripts
         /// </summary>
         public void RestartGame()
         {
-            Time.timeScale = 1;
             _pauseMenu.gameObject.SetActive(false);
+            Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            Debug.Log("Game restarted.");
         }
 
         /// <summary>
@@ -49,9 +44,7 @@ namespace Assets.Scripts
         /// </summary>
         public void QuitToMainMenu()
         {
-            health -= 10;
-            healthBar.SetHealth(health);
-            //SceneManager.LoadScene("Main Menu");
+            SceneManager.LoadScene("Scene - Main Menu");
         }
     }
 }

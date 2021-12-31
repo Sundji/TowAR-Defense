@@ -15,7 +15,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnPlayClick()
     {
-        SceneManager.LoadScene("Test Scene - Vuforia");
+        SceneManager.LoadScene("Scene - Game");
     }
 
     public void OnReturnClick()

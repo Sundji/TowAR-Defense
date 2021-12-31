@@ -19,11 +19,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         EventManager.Instance.OnPawnDeathEvent.AddListener(OnPawnDeath);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space)) EventManager.Instance.OnGameStartEvent.Invoke(); // temporary
-    }
-
     private void OnGameStart()
     {
         _isGameActive = true;
