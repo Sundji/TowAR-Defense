@@ -2,14 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
-{
+{ 
     private List<Pawn> _pawnsEnemy = new List<Pawn>();
     private List<Pawn> _pawnsFriendly = new List<Pawn>();
     private List<Pawn> _towersFriendly = new List<Pawn>();
 
+    private bool _isGameActive = false;
+
+    public bool IsGameActive { get { return _isGameActive; } }
+
     protected override void Awake()
     {
         base.Awake();
+        EventManager.Instance.OnGameStartEvent.AddListener(OnGameStart);
         EventManager.Instance.OnPawnCreatedEvent.AddListener(OnPawnCreated);
         EventManager.Instance.OnPawnDeathEvent.AddListener(OnPawnDeath);
     }
@@ -18,6 +23,11 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Space)) EventManager.Instance.OnGameStartEvent.Invoke(); // temporary
     }
+
+    private void OnGameStart()
+    {
+        _isGameActive = true;
+    }    
 
     private void OnPawnCreated(Pawn pawn)
     {
@@ -68,6 +78,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void GameEnd(bool isVictory)
     {
+        _isGameActive = false;
         EventManager.Instance.OnGameEndEvent.Invoke(isVictory);
     }
 

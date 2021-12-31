@@ -4932,4 +4932,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pawnTypesToHit: 0200000003000000
   _damageAmount: 10
-  _speed: 5
+  _speed: 7.5
