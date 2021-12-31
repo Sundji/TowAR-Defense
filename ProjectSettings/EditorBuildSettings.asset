@@ -6,12 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 1bd2bded9832b4e40a3660cd9330bc51
-  - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: 49b21ff8e27393545bce5b6c90162738
-  - enabled: 1
     path: Assets/Scenes/Test Scene - Vuforia.unity
     guid: 4c0b6523e225b8c41906580ab7c36483
   m_configObjects: {}
