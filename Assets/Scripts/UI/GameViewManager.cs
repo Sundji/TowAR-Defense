@@ -16,6 +16,8 @@ public class GameViewManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
+
         _setUpView.SetActive(true);
         _inGameView.SetActive(false);
         _endGameView.SetActive(false);

@@ -51,7 +51,6 @@ public class Pawn : MonoBehaviour
         {
             _isInitialized = true;
             _target = GameManager.Instance.FindClosestTarget(_transform.position, _type);
-            if (_type != PawnType.TOWER_FRIENDLY) _transform.LookAt(_target.transform);
         }
         if (_target != null && _timer > _shootingWaitTime)
         {
