@@ -13,6 +13,7 @@ public class GameViewManager : MonoBehaviour
     [Header("Set Up View")]
     [SerializeField] private GameObject _setUpView = null;
     [SerializeField] private Button _setUpFinishButton = null;
+    [SerializeField] private Text _setUpText = null;
 
     private void Awake()
     {
@@ -37,6 +38,15 @@ public class GameViewManager : MonoBehaviour
 
     private void FinishSetUp()
     {
+        string message = string.Empty;
+        bool canFinish = GameManager.Instance.CheckIfCanStartGame(out message);
+
+        if (!canFinish)
+        {
+            _setUpText.text = message;
+            return;
+        }
+
         _setUpView.SetActive(false);
         _inGameView.SetActive(true);
         _endGameView.SetActive(false);

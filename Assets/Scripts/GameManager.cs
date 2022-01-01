@@ -2,7 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
-{ 
+{
+    private const int MAXIMUM_NUMBER_OF_ACTIVE_LEVEL_TARGETS = 1;
+    private const int MAXIMUM_NUMBER_OF_ACTIVE_PAWN_TARGETS = 3;
+
+    private int _numberOfActiveLevelTargets = 0;
+    private int _numberOfActivePawnTargets = 0;
+
     private List<Pawn> _pawnsEnemy = new List<Pawn>();
     private List<Pawn> _pawnsFriendly = new List<Pawn>();
     private List<Pawn> _towersFriendly = new List<Pawn>();
@@ -22,12 +28,12 @@ public class GameManager : SingletonBehaviour<GameManager>
     private void OnGameStart()
     {
         _isGameActive = true;
-    }    
+    }
 
     private void OnPawnCreated(Pawn pawn)
     {
         PawnType pawnType = pawn.Type;
-        
+
         if (pawnType == PawnType.PAWN_ENEMY_MELEE || pawnType == PawnType.PAWN_ENEMY_RANGED) _pawnsEnemy.Add(pawn);
         else if (pawnType == PawnType.PAWN_FRIENDLY) _pawnsFriendly.Add(pawn);
         else if (pawnType == PawnType.TOWER_FRIENDLY) _towersFriendly.Add(pawn);
@@ -95,5 +101,46 @@ public class GameManager : SingletonBehaviour<GameManager>
             return index == -1 ? null : _pawnsEnemy[index];
         }
         return null;
+    }
+
+    public bool ActivateLevelImageTarget()
+    {
+        if (_numberOfActiveLevelTargets == MAXIMUM_NUMBER_OF_ACTIVE_LEVEL_TARGETS) return false;
+        _numberOfActiveLevelTargets++;
+        return true;
+    }
+    public bool ActivatePawnImageTarget()
+    {
+        if (_numberOfActivePawnTargets == MAXIMUM_NUMBER_OF_ACTIVE_PAWN_TARGETS) return false;
+        _numberOfActivePawnTargets++;
+        return true;
+    }
+
+    public void DeactivateLevelImageTarget()
+    {
+        if (_numberOfActiveLevelTargets > 0) _numberOfActiveLevelTargets--;
+    }
+
+    public void DeactivatePawnImageTarget()
+    {
+        if (_numberOfActivePawnTargets > 0) _numberOfActivePawnTargets--;
+    }
+
+    public bool CheckIfCanStartGame(out string message)
+    {
+        if (_numberOfActiveLevelTargets == 0)
+        {
+            message = "Please scan a level image target.";
+            return false;
+        }
+
+        if (_numberOfActivePawnTargets == 0)
+        {
+            message = "Please scan one or more pawn image targets.";
+            return false;
+        }
+
+        message = "All set up.";
+        return true;
     }
 }
