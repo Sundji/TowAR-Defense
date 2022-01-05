@@ -84,6 +84,8 @@ public class Pawn : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (!GameManager.Instance.IsGameActive) return;
+
         _health -= amount;
         if (_health <= 0.0f)
         {
